@@ -1,12 +1,10 @@
-## python-survey:
-
+## python-survey
 ## Technologies
 - FastApi
 - Mongoengine
 - MongoDB
 - pydantic
 - uvicorn
-
 ## Requirements
 - anyio==3.3.4
 - asgiref==3.4.1
