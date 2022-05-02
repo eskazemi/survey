@@ -36,7 +36,7 @@ class Poll(Document):
         """
         calculation total_polls and average_score fields a container
         """
-        container = Container.objects.get(id=document.poll_id)
+        container = Container.objects.get(id=document.container_id)
         total_polls = container.total_polls + 1
         if container['average_score'] == 0:
             container.average_score = document.score

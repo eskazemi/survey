@@ -2,7 +2,8 @@ from fastapi import (
     APIRouter,
     status,
     Body,
-    HTTPException
+    HTTPException,
+    Request
 )
 from app.api.models import Container
 from app.api.schema.container import ContainerSchema, DeActivePoll
@@ -16,10 +17,8 @@ router = APIRouter()
 #####################
 # #######get########
 #####################
-
-
 @router.get('', status_code=status.HTTP_200_OK)
-def get_all_container():
+def get_all_container(re: Request):
     container_list = []
     containers = (Container.objects.all())
     for obj in containers:
@@ -32,7 +31,7 @@ def get_container(poll_id: str):
     try:
         info = (Container.objects.get(id=ObjectId(poll_id))).to_mongo().to_dict()
         # converting query result into valid python dict
-        return poll_helper(info)
+        return container_helper(info)
     except DoesNotExist:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
 

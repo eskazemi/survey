@@ -5,7 +5,6 @@ from fastapi import (
     Body
 )
 from mongoengine import DoesNotExist
-from app.api.routers.helper import poll_helper
 from app.api.models.poll import Poll
 from app.api.schema.poll import PollSchema
 
@@ -20,10 +19,14 @@ router = APIRouter()
 @router.get('', status_code=status.HTTP_200_OK)
 def get_all_poll():
     polls_list = []
-    polls = Poll.objects.all()
-    for poll in polls:
-        polls_list.append(poll_helper(poll.to_mongo().to_dict()))
-    return polls_list
+    try:
+        return Poll.objects.all()
+    except Exception as e:
+        return f"{e}"
+    # else:
+    #     for poll in polls:
+    #         polls_list.append(poll_helper(poll.to_mongo().to_dict()))
+    #     return polls_list
 
 
 #####################
